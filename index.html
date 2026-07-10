@@ -50,22 +50,37 @@
         .btn:hover {
             background-color: #1d4ed8;
         }
+        .icon {
+            font-size: 50px;
+            color: #22c55e;
+            margin-bottom: 20px;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h1>Link Your Google Workspace</h1>
-        <p>Click the button below to authorize the secure background sync for your custom clothing business automation.</p>
+        <div id="successIcon" class="icon">✓</div>
+        <h1 id="mainTitle">Link Your Google Workspace</h1>
+        <p id="mainText">Click the button below to authorize the secure background sync for your custom clothing business automation.</p>
         
-        <!-- THE INVITE BUTTON -->
         <a id="authButton" href="#" class="btn">Connect Workspace Account</a>
     </div>
 
     <script>
-        // We will insert your invisible handshake link here in the next step
+        // Insert your custom Make webhook link below
         const inviteLink = "https://accounts.google.com/o/oauth2/v2/auth?client_id=599005870346-82vh7t0ss3bmtrhl4f6338u8dk4r8379.apps.googleusercontent.com&redirect_uri=https://hook.us2.make.com/ulovlx2id3onic3y44ra8toi5jp8pvxl&response_type=code&scope=https://mail.google.com/+https://www.googleapis.com/auth/calendar+https://www.googleapis.com/auth/documents+https://www.googleapis.com/auth/spreadsheets+https://www.googleapis.com/auth/drive&access_type=offline&prompt=consent";
         document.getElementById("authButton").href = inviteLink;
+
+        // Automatically switch layout if coming back successful
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('status') && urlParams.get('status') === 'success') {
+            document.getElementById("successIcon").style.display = "block";
+            document.getElementById("mainTitle").innerText = "Connection Successful";
+            document.getElementById("mainText").innerText = "Your Google Workspace has been securely linked to your automation engine. You can safely close this window now.";
+            document.getElementById("authButton").style.display = "none";
+        }
     </script>
 
 </body>
